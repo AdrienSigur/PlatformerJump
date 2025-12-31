@@ -3,10 +3,16 @@ import pygame
 class Player:
     def __init__(self, screen_w, screen_h):
 
-        self.pos = pygame.Vector2(screen_w / 2, screen_h / 2)
+        original_image = pygame.image.load("Models\\Mario.png").convert_alpha()
+
+        self.image = pygame.transform.scale(original_image, (70, 70))
+
+        self.pos = pygame.Vector2(screen_w - 1180 , screen_h - 100)
         self.speed = 150
         self.radius = 40 
-        self.hitbox = pygame.Rect(0, 0, 80, 80)
+        self.hitbox = self.image.get_rect()
+        self.hitbox.center = self.pos
+
 
     def move(self, dt , Environnement):
        
@@ -30,7 +36,6 @@ class Player:
                 self.hitbox.center = self.pos
                 break
 
-
         move_y = 0
         if keys[pygame.K_z]:
             move_y = -self.speed * dt
@@ -46,7 +51,8 @@ class Player:
                 self.hitbox.center = self.pos
                 break
 
-    def draw(self, surface):
+    def draw(self , surface):
         # Une MÉTHODE pour se dessiner sur l'écran
-        pygame.draw.circle(surface, "red", self.pos, self.radius)
+        surface.blit(self.image, self.hitbox)
+        pygame.draw.rect(self.hitbox.center , "white" , self.hitbox)
 
