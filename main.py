@@ -34,7 +34,7 @@ while running:
 
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("Grey")
-    debug_grid(screen)
+    # debug_grid(screen)
     player.draw(screen)
 
     player.move(dt , Environnement)
